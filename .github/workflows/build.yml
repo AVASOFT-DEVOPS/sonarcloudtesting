@@ -20,6 +20,10 @@ jobs:
     - name: Build Go code
       run: |
         go build -o myapp main.go
+        
+    - name: Test go code using test scripts
+      run: |
+        go test -v ./...
 
     - name: Archive artifact
       uses: actions/upload-artifact@v2
