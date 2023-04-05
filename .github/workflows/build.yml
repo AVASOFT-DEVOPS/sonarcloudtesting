@@ -40,4 +40,4 @@ jobs:
     - name: SonarCloud Scan
       env:
         GOCACHE: /tmp/.cache/go-build
-        run: sonar-scanner
+      run: sonar-scanner
