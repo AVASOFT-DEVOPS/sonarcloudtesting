@@ -1,44 +1,20 @@
-
-name: Build Go Code
-
+name: Build
 on:
   push:
     branches:
       - main
-
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
-  build:
+  sonarcloud:
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Go environment
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.17'
-
-    - name: Build Go code
-      run: |
-        go build -o myapp main.go
-        
-    - name: Test go code using test scripts
-      run: |
-        go test -v ./...
-    - name: Archive artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: myapp
-        path: ./myapp
-    
-    - name: Download and install SonarScanner
-      run: |
-        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-{VERSION}.zip
-        unzip sonar-scanner-cli-4.6.2.2472.zip
-        sudo mv sonar-scanner-4.6.2.2472 /opt/sonar-scanner
-        echo "export PATH=$PATH:/opt/sonar-scanner/bin" >> ~/.bashrc
-        source ~/.bashrc
-    - name: SonarCloud Scan
-      env:
-        GOCACHE: /tmp/.cache/go-build
-      run: sonar-scanner
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
