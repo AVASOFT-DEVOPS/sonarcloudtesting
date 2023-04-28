@@ -23,7 +23,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
   test:
-    name: Software Qulaity Testing
+    name: Software Quality Testing
     runs-on: ubuntu-latest
     steps:
       - name: ServiceNow DevOps Sonar Scan Results
