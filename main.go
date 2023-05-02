@@ -60,7 +60,7 @@ func validate(req string) *ValidateResponse {
 	if strings.TrimSpace(req) == "" {
 		return &ValidateResponse{Code: "400", Message: "Name cannot be empty"}
 	} else if !alphabetsRegex.MatchString(req) {
-		return &ValidateResponse{Code: "400", Message: "Name should not contain numbers"}
+		return &ValidateResponse{Code: "400", Message: "Name should not contain numbers"}#TODO
 	} else {
 		return nil
 	}
