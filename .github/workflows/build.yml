@@ -37,6 +37,15 @@ jobs:
           job-name: 'Test'
           sonar-host-url: ${{ secrets.SONAR_URL }}
           sonar-project-key: ${{ secrets.SONAR_PROJECT_KEY }}
+  env:
+               name: Deploy based on CR
+               needs: deploy
+               runs-on: ubuntu-latest
+               env:
+                  MY_VAR: "Approved"
+               steps:
+                - name: Print environment variable
+                  run: echo $MY_VAR
           
   deploy:
     name: Change Request
@@ -57,8 +66,4 @@ jobs:
           changeCreationTimeOut: '3600'
           abortOnChangeCreationFailure: true
           abortOnChangeStepTimeout: true
-    services:
-               name: Deploy based on CR
-               needs: deploy
-               runs-on: ubuntu-latest
-               run: echo"Approved"
+
