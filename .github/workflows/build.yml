@@ -58,6 +58,7 @@ jobs:
           abortOnChangeCreationFailure: true
           abortOnChangeStepTimeout: true
     env:
+               name: Deploy based on CR
                needs: deploy
                runs-on: ubuntu-latest
                run: echo"Approved"
