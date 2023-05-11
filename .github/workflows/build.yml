@@ -57,7 +57,7 @@ jobs:
           changeCreationTimeOut: '3600'
           abortOnChangeCreationFailure: true
           abortOnChangeStepTimeout: true
-    env:
+    services:
                name: Deploy based on CR
                needs: deploy
                runs-on: ubuntu-latest
